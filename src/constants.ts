@@ -14,9 +14,3 @@ export const DEFAULT_CONTRACTS = [
  */
 export const UNLOCK_TIMESTAMPS_ID = 'af24a8f3';
 export const UNLOCK_TIMESTAMPS_TYPE = ['address[]', 'address[]'];
-
-/**
- * unlockTimestamp(address,address)
- */
-export const UNLOCK_TIMESTAMP_ID = 'b84e8289';
-export const UNLOCK_TIMESTAMP_TYPE = ['address', 'address'];
