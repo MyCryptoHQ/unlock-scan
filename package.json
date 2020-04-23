@@ -1,0 +1,109 @@
+{
+  "name": "@mycrypto/unlock-scan",
+  "version": "2.1.0",
+  "description": "An efficient Unlock Protocol scanner",
+  "keywords": [
+    "ethereum",
+    "unlock",
+    "unlock-protocol",
+    "scanner",
+    "web3",
+    "ethers.js",
+    "smart-contract"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/es/index.js",
+  "typings": "typings/index.d.ts",
+  "repository": "https://github.com/MyCryptoHQ/unlock-scan.git",
+  "author": "MyCrypto",
+  "contributors": [
+    "Maarten Zuidhoorn <maarten@zuidhoorn.com>"
+  ],
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src",
+    "typings"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "prepare": "yarn run build",
+    "prepublishOnly": "yarn run test",
+    "clean": "rimraf lib",
+    "build": "yarn run clean && yarn run build:source && yarn run build:declarations",
+    "build:source": "yarn run build:source:cjs && yarn run build:source:es",
+    "build:source:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src --extensions '.ts' --source-maps --out-dir lib/cjs",
+    "build:source:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src --extensions '.ts' --source-maps --out-dir lib/es",
+    "build:declarations": "tsc -p tsconfig.build.json",
+    "ganache": "ganache-cli > /dev/null",
+    "truffle:migrate": "truffle migrate",
+    "truffle:test": "cross-env NODE_ENV=test truffle test",
+    "test": "concurrently -k -s first --raw 'yarn run --silent ganache' 'yarn run truffle:test'",
+    "prettier": "prettier --write --config ./.prettierrc --list-different './**/*.ts' './**/*.js'",
+    "lint": "yarn run lint:ts && yarn run lint:tslint",
+    "lint:ts": "tsc --noEmit",
+    "lint:tslint": "tslint --project ."
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.7.5",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "@babel/register": "^7.7.7",
+    "@ethersproject/providers": "^5.0.0-beta.131",
+    "@truffle/hdwallet-provider": "^1.0.27",
+    "@types/chai": "^4.1.7",
+    "@types/chai-spies": "^1.0.0",
+    "@types/ethereumjs-abi": "^0.6.3",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^12.0.3",
+    "@types/node-fetch": "^2.5.4",
+    "babel-preset-minify": "^0.5.1",
+    "chai": "^4.2.0",
+    "chai-spies": "^1.0.0",
+    "concurrently": "^4.1.0",
+    "core-js": "^3.1.3",
+    "cross-env": "^6.0.3",
+    "ganache-cli": "^6.9.1",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
+    "mocha": "^6.1.4",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
+    "truffle": "^5.1.17",
+    "ts-mocha": "^6.0.0",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "typescript": "^3.7.3",
+    "web3": "^1.2.4"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write --config ./.prettierrc --config-precedence file-override",
+      "tslint --project .",
+      "git add"
+    ],
+    "*.js": [
+      "prettier --write --config ./.prettierrc --config-precedence file-override",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run test && yarn run lint:ts && lint-staged"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@ethersproject/abi": "^5.0.0-beta.146",
+    "@ethersproject/bignumber": "^5.0.0-beta.135",
+    "isomorphic-unfetch": "^3.0.0"
+  }
+}
