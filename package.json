@@ -28,7 +28,6 @@
   "sideEffects": false,
   "scripts": {
     "prepare": "yarn run compile && yarn run build",
-    "prepublishOnly": "yarn run tests",
     "clean": "rimraf lib",
     "build": "yarn run clean && yarn run build:source && yarn run build:declarations",
     "build:source": "yarn run build:source:cjs && yarn run build:source:es",
