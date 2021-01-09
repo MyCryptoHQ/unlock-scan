@@ -44,6 +44,9 @@
     "lint:ts": "tsc --noEmit",
     "lint:tslint": "tslint --project ."
   },
+  "peerDependencies": {
+    "@mycrypto/eth-scan": ">=3.2.1"
+  },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
@@ -54,6 +57,7 @@
     "@babel/preset-typescript": "^7.7.7",
     "@babel/register": "^7.7.7",
     "@ethersproject/providers": "^5.0.0-beta.131",
+    "@mycrypto/eth-scan": "^3.2.1",
     "@truffle/hdwallet-provider": "^1.0.27",
     "@types/chai": "^4.1.7",
     "@types/chai-spies": "^1.0.0",
@@ -70,7 +74,7 @@
     "ganache-cli": "^6.9.1",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
-    "mocha": "^6.1.4",
+    "mocha": "^8.2.1",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "truffle": "^5.1.17",
@@ -100,10 +104,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@ethersproject/abi": "^5.0.0-beta.146",
-    "@ethersproject/bignumber": "^5.0.0-beta.135",
-    "isomorphic-unfetch": "^3.0.0"
   }
 }

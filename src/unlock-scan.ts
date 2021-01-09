@@ -1,5 +1,3 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { batch, decode, encodeWithId } from './utils';
 import {
   BATCH_SIZE,
   CONTRACT_ADDRESS,
@@ -7,14 +5,12 @@ import {
   UNLOCK_TIMESTAMPS_ID,
   UNLOCK_TIMESTAMPS_TYPE
 } from './constants';
-import { call, ProviderLike } from './providers';
+import { BalanceMap, callMultiple, encodeWithId, ProviderLike } from '@mycrypto/eth-scan';
 
 /**
  * An object that contains the address (key) and timestamp or timestamp map (value).
  */
-export interface TimestampMap<T = BigNumber> {
-  [key: string]: T;
-}
+export type TimestampMap = BalanceMap<BalanceMap>;
 
 export interface UnlockScanOptions {
   /**
@@ -52,65 +48,13 @@ export const getUnlockTimestamps = async (
   provider: ProviderLike,
   addresses: string[],
   options?: UnlockScanOptions
-): Promise<TimestampMap<TimestampMap>> => {
+): Promise<TimestampMap> => {
   const contractAddress = options?.contractAddress ?? CONTRACT_ADDRESS;
   const batchSize = options?.batchSize ?? BATCH_SIZE;
   const contracts = options?.contracts ?? DEFAULT_CONTRACTS;
 
-  const timestamps = await batch<BigNumber[]>(
-    async (batchedAddresses: string[]) => {
-      const data = encodeWithId(
-        UNLOCK_TIMESTAMPS_ID,
-        UNLOCK_TIMESTAMPS_TYPE,
-        batchedAddresses,
-        contracts
-      );
-
-      return decode<[BigNumber[][]]>(
-        ['uint256[][]'],
-        await call(provider, contractAddress, data)
-      )[0];
-    },
-    batchSize,
-    addresses
-  );
-
-  return toNestedMap(addresses, contracts, timestamps);
-};
-
-/**
- * Get a map from an array of addresses and an array of timestamps.
- *
- * @param {string[]} addresses
- * @param {BigNumber[]} timestamps
- * @return {TimestampMap}
- */
-export const toMap = (addresses: string[], timestamps: BigNumber[]): TimestampMap => {
-  return timestamps.reduce<TimestampMap>((current, next, index) => {
-    return {
-      ...current,
-      [addresses[index]]: next
-    };
-  }, {});
-};
-
-/**
- * Get a nested map from an array of addresses, contract addresses, and timestamps.
- *
- * @param {string[]} addresses
- * @param {BigNumber[]} contractAddresses
- * @param {TimestampMap<TimestampMap>} timestamps
- */
-export const toNestedMap = (
-  addresses: string[],
-  contractAddresses: string[],
-  timestamps: BigNumber[][]
-): TimestampMap<TimestampMap> => {
-  return timestamps.reduce<TimestampMap<TimestampMap>>(
-    (current, next, index) => ({
-      ...current,
-      [addresses[index]]: toMap(contractAddresses, next)
-    }),
-    {}
-  );
+  return callMultiple(provider, addresses, contracts, (batchedAddresses, batchedContracts) => encodeWithId(UNLOCK_TIMESTAMPS_ID, UNLOCK_TIMESTAMPS_TYPE, batchedAddresses, batchedContracts), {
+    contractAddress,
+    batchSize
+  });
 };
