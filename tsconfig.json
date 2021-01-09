@@ -9,14 +9,13 @@
     "noEmitOnError": true,
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
-  "include": [
-    "./src/**/*",
-    "./test/**/*",
-    "./webpack.config.ts"
+  "files": [
+    "node_modules/@nomiclabs/hardhat-ethers/src/type-extensions.ts",
+    "node_modules/@nomiclabs/hardhat-waffle/src/type-extensions.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src", "tests", "scripts", "./buidler.config.ts"],
+  "exclude": ["node_modules"]
 }
