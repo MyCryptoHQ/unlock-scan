@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { BigNumber } from '@ethersproject/bignumber';
 import { getUnlockTimestamps } from '../src';
 
 const UnlockScanner = artifacts.require('UnlockScanner');
@@ -25,12 +24,12 @@ describe('unlock-scan', () => {
       expect(Object.keys(timestamps[account]).length).to.equal(2);
       expect(Object.keys(timestamps[account])[0]).to.equal(unlockContract.address);
       expect(Object.keys(timestamps[account])[1]).to.equal(secondUnlockContract.address);
-      expect(timestamps[account][unlockContract.address].eq(BigNumber.from('100000'))).to.equal(
-        true
+      expect(timestamps[account][unlockContract.address].toString()).to.equal(
+        100000n.toString()
       );
       expect(
-        timestamps[account][secondUnlockContract.address].eq(BigNumber.from('100000'))
-      ).to.equal(true);
+        timestamps[account][secondUnlockContract.address].toString()
+      ).to.equal(100000n.toString());
     }
   });
 
@@ -46,8 +45,8 @@ describe('unlock-scan', () => {
     });
 
     expect(Object.keys(timestamps).length).to.equal(10);
-    expect(timestamps[accounts[0]][token.address].eq(BigNumber.from('100000'))).to.equal(true);
-    expect(timestamps[accounts[0]][invalidToken.address].eq(BigNumber.from('0'))).to.equal(true);
-    expect(timestamps[accounts[0]][accounts[0]].eq(BigNumber.from('0'))).to.equal(true);
+    expect(timestamps[accounts[0]][token.address].toString()).to.equal(100000n.toString());
+    expect(timestamps[accounts[0]][invalidToken.address].toString()).to.equal(0n.toString());
+    expect(timestamps[accounts[0]][accounts[0]].toString()).to.equal(0n.toString());
   });
 });
