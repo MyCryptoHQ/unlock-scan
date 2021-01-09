@@ -26,5 +26,8 @@
     "jsdoc-format": [true, "check-multiline-start"],
     "no-bitwise": false
   },
-  "rulesDirectory": ["node_modules/tslint-microsoft-contrib"]
+  "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
+  "linterOptions": {
+    "exclude": ["node_modules/**/*"]
+  }
 }

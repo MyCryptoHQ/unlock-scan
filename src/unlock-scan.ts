@@ -53,8 +53,20 @@ export const getUnlockTimestamps = async (
   const batchSize = options?.batchSize ?? BATCH_SIZE;
   const contracts = options?.contracts ?? DEFAULT_CONTRACTS;
 
-  return callMultiple(provider, addresses, contracts, (batchedAddresses, batchedContracts) => encodeWithId(UNLOCK_TIMESTAMPS_ID, UNLOCK_TIMESTAMPS_TYPE, batchedAddresses, batchedContracts), {
-    contractAddress,
-    batchSize
-  });
+  return callMultiple(
+    provider,
+    addresses,
+    contracts,
+    (batchedAddresses, batchedContracts) =>
+      encodeWithId(
+        UNLOCK_TIMESTAMPS_ID,
+        UNLOCK_TIMESTAMPS_TYPE,
+        batchedAddresses,
+        batchedContracts
+      ),
+    {
+      contractAddress,
+      batchSize
+    }
+  );
 };
