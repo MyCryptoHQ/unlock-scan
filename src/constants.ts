@@ -14,3 +14,25 @@ export const DEFAULT_CONTRACTS = [
  */
 export const UNLOCK_TIMESTAMPS_ID = 'af24a8f3';
 export const UNLOCK_TIMESTAMPS_TYPE = ['address[]', 'address[]'];
+
+export const UNLOCK_CONTRACT_ABI = [
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'who',
+        type: 'address'
+      }
+    ],
+    name: 'keyExpirationTimestampFor',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256'
+      }
+    ],
+    stateMutability: 'pure',
+    type: 'function'
+  }
+];

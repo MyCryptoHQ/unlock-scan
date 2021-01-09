@@ -1,33 +1,12 @@
 import { BigNumber, Signer } from 'ethers';
 import { waffle } from 'hardhat';
 import UnlockScannerArtifact from '../artifacts/contracts/UnlockScanner.sol/UnlockScanner.json';
+import { UNLOCK_CONTRACT_ABI } from '../src/constants';
 import { UnlockScanner } from '../src/contracts';
 
 const { deployContract, deployMockContract, createFixtureLoader, provider } = waffle;
 
 const loadFixture = createFixtureLoader(provider.getWallets(), provider);
-
-const UNLOCK_CONTRACT_ABI = [
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'who',
-        type: 'address'
-      }
-    ],
-    name: 'keyExpirationTimestampFor',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
-    stateMutability: 'pure',
-    type: 'function'
-  }
-];
 
 /**
  * Low-level tests for the contract itself, using direct contract interactions. For the library itself, you can refer
