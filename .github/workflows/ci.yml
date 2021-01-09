@@ -35,6 +35,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile --ignore-scripts
 
+      - name: Compile Contracts
+        run: yarn compile
+
       - name: Lint Types
         run: yarn lint:types
 
@@ -71,6 +74,9 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile --ignore-scripts
+
+      - name: Compile Contracts
+        run: yarn compile
 
       - name: Test
         run: yarn test --coverage
