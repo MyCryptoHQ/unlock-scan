@@ -1,7 +1,7 @@
-import { waffle } from 'hardhat';
 import { BigNumber, Signer } from 'ethers';
-import { UnlockScanner } from '../src/contracts';
+import { waffle } from 'hardhat';
 import UnlockScannerArtifact from '../artifacts/contracts/UnlockScanner.sol/UnlockScanner.json';
+import { UnlockScanner } from '../src/contracts';
 
 const { deployContract, deployMockContract, createFixtureLoader, provider } = waffle;
 

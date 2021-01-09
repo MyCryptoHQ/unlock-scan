@@ -1,3 +1,4 @@
+import { BalanceMap, callMultiple, encodeWithId, ProviderLike } from '@mycrypto/eth-scan';
 import {
   BATCH_SIZE,
   CONTRACT_ADDRESS,
@@ -5,7 +6,6 @@ import {
   UNLOCK_TIMESTAMPS_ID,
   UNLOCK_TIMESTAMPS_TYPE
 } from './constants';
-import { BalanceMap, callMultiple, encodeWithId, ProviderLike } from '@mycrypto/eth-scan';
 
 /**
  * An object that contains the address (key) and timestamp or timestamp map (value).
