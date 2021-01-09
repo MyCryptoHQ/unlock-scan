@@ -39,7 +39,7 @@
     "test": "jest",
     "lint": "yarn lint:types && yarn lint:source && yarn lint:solidity && yarn lint:format",
     "lint:types": "tsc --noEmit",
-    "lint:source": "tslint --project .",
+    "lint:source": "eslint . --ignore-path .gitignore --ext .ts,.tsx,.js,.jsx",
     "lint:solidity": "solhint -w 0 'contracts/**/*.sol'",
     "lint:format": "prettier --check --ignore-path .gitignore '**/*.{ts,tsx,js,jsx,json,yml,sol}'",
     "format": "prettier --write --ignore-path .gitignore '**/*.{ts,tsx,js,json,yml,sol}'"
@@ -56,7 +56,6 @@
     "@babel/plugin-transform-modules-commonjs": "^7.7.5",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-typescript": "^7.7.7",
-    "@babel/register": "^7.7.7",
     "@mycrypto/eth-scan": "^3.2.1",
     "@nomiclabs/hardhat-ethers": "^2.0.1",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
@@ -64,10 +63,15 @@
     "@typechain/ethers-v5": "^5.0.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^12.0.3",
-    "@types/node-fetch": "^2.5.4",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
     "babel-preset-minify": "^0.5.1",
     "core-js": "^3.1.3",
     "cross-env": "^6.0.3",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
     "ethereum-waffle": "^3.2.1",
     "ethers": "^5.0.25",
     "hardhat": "^2.0.7",
@@ -81,16 +85,13 @@
     "solhint": "^3.3.2",
     "ts-generator": "^0.1.1",
     "ts-node": "^8.5.4",
-    "tslint": "^5.16.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-microsoft-contrib": "^6.2.0",
     "typechain": "^4.0.1",
-    "typescript": "^3.7.3",
-    "web3": "^1.2.4"
+    "typescript": "^3.7.3"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "prettier --write"
+      "prettier --write",
+      "eslint --fix"
     ],
     "*.{sol,json,yml}": [
       "prettier --write"
