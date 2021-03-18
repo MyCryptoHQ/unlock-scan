@@ -1,4 +1,4 @@
-import { BalanceMap, callMultiple, encodeWithId, ProviderLike } from '@mycrypto/eth-scan';
+import { BalanceMap, callMultiple, encode, ProviderLike, withId } from '@mycrypto/eth-scan';
 import {
   BATCH_SIZE,
   CONTRACT_ADDRESS,
@@ -58,11 +58,9 @@ export const getUnlockTimestamps = async (
     addresses,
     contracts,
     (batchedAddresses, batchedContracts) =>
-      encodeWithId(
+      withId(
         UNLOCK_TIMESTAMPS_ID,
-        UNLOCK_TIMESTAMPS_TYPE,
-        batchedAddresses,
-        batchedContracts
+        encode(UNLOCK_TIMESTAMPS_TYPE, [batchedAddresses, batchedContracts])
       ),
     {
       contractAddress,
