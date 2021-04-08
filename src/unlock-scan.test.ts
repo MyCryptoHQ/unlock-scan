@@ -12,29 +12,38 @@ describe('getUnlockTimestamps', () => {
       provider.getWallets()[0],
       UnlockScannerArtifact
     )) as UnlockScanner;
-    const unlockContract = await deployMockContract(provider.getWallets()[0], UNLOCK_CONTRACT_ABI);
+    const unlockContractA = await deployMockContract(provider.getWallets()[0], UNLOCK_CONTRACT_ABI);
+    const unlockContractB = await deployMockContract(provider.getWallets()[0], UNLOCK_CONTRACT_ABI);
 
     const addresses = await Promise.all(
       provider.getWallets().map(wallet => wallet.getAddress())
     ).then(wallets => wallets.slice(0, 3));
-    await unlockContract.mock.keyExpirationTimestampFor.withArgs(addresses[0]).returns('12345');
-    await unlockContract.mock.keyExpirationTimestampFor.withArgs(addresses[1]).returns('54321');
-    await unlockContract.mock.keyExpirationTimestampFor.withArgs(addresses[2]).returns('10000');
+
+    await unlockContractA.mock.keyExpirationTimestampFor.withArgs(addresses[0]).returns('12345');
+    await unlockContractA.mock.keyExpirationTimestampFor.withArgs(addresses[1]).returns('54321');
+    await unlockContractA.mock.keyExpirationTimestampFor.withArgs(addresses[2]).returns('10000');
+
+    await unlockContractB.mock.keyExpirationTimestampFor.withArgs(addresses[0]).returns('54321');
+    await unlockContractB.mock.keyExpirationTimestampFor.withArgs(addresses[1]).returns('12345');
+    await unlockContractB.mock.keyExpirationTimestampFor.withArgs(addresses[2]).returns('10101');
 
     const timestamps = await getUnlockTimestamps(ethers.provider, addresses, {
       contractAddress: contract.address,
-      contracts: [unlockContract.address]
+      contracts: [unlockContractA.address, unlockContractB.address]
     });
 
     expect(timestamps).toEqual({
       [addresses[0]]: {
-        [unlockContract.address]: 12345n
+        [unlockContractA.address]: 12345n,
+        [unlockContractB.address]: 54321n
       },
       [addresses[1]]: {
-        [unlockContract.address]: 54321n
+        [unlockContractA.address]: 54321n,
+        [unlockContractB.address]: 12345n
       },
       [addresses[2]]: {
-        [unlockContract.address]: 10000n
+        [unlockContractA.address]: 10000n,
+        [unlockContractB.address]: 10101n
       }
     });
   });

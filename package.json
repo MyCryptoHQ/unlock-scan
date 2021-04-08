@@ -44,7 +44,7 @@
     "format": "prettier --write --ignore-path .gitignore '**/*.{ts,tsx,js,json,yml,sol}'"
   },
   "peerDependencies": {
-    "@mycrypto/eth-scan": ">=3.3.1"
+    "@mycrypto/eth-scan": ">=3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
@@ -55,7 +55,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.7.5",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-typescript": "^7.7.7",
-    "@mycrypto/eth-scan": "^3.3.1",
+    "@mycrypto/eth-scan": "^3.4.2",
     "@nomiclabs/hardhat-ethers": "^2.0.1",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@truffle/hdwallet-provider": "^1.0.27",
@@ -103,5 +103,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@findeth/abi": "^0.7.1"
   }
 }
