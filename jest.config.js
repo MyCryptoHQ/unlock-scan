@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ['src/', 'tests/'],
+  roots: ['src/'],
   clearMocks: true,
   collectCoverageFrom: ['**/*.ts?(x)', '!**/*.d.ts', '!src/contracts/**/*', '!src/vendor/**/*'],
   transform: {

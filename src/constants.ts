@@ -1,5 +1,4 @@
-export const CONTRACT_ADDRESS = '0x60EfD418BEB6E0064AcBb7CD704169F07De67480';
-export const BATCH_SIZE = 1000;
+export const CONTRACT_ADDRESS = '0x08A8fDBddc160A7d5b957256b903dCAb1aE512C5';
 
 export const DEFAULT_CONTRACTS = [
   '0x6cA105D2AF7095B1BCEeb6A2113D168ddDCD57cf',
@@ -10,10 +9,16 @@ export const DEFAULT_CONTRACTS = [
 ];
 
 /**
- * unlockTimestamps(address[],address[])
+ * call(address[],bytes[])
  */
-export const UNLOCK_TIMESTAMPS_ID = 'af24a8f3';
-export const UNLOCK_TIMESTAMPS_TYPE = ['address[]', 'address[]'];
+export const CALL_ID = '458b3a7c';
+export const CALL_TYPE: ['address[]', 'bytes[]'] = ['address[]', 'bytes[]'];
+
+/**
+ * keyExpirationTimestampFor(address)
+ */
+export const KEY_EXPIRATION_TIMESTAMP_FOR_ID = 'abdf82ce';
+export const KEY_EXPIRATION_TIMESTAMP_FOR_TYPE: ['address'] = ['address'];
 
 export const UNLOCK_CONTRACT_ABI = [
   {

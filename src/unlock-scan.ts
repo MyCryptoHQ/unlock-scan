@@ -1,11 +1,6 @@
-import { BalanceMap, callMultiple, encode, ProviderLike, withId } from '@mycrypto/eth-scan';
-import {
-  BATCH_SIZE,
-  CONTRACT_ADDRESS,
-  DEFAULT_CONTRACTS,
-  UNLOCK_TIMESTAMPS_ID,
-  UNLOCK_TIMESTAMPS_TYPE
-} from './constants';
+import { BalanceMap, encode, ProviderLike, withId } from '@mycrypto/eth-scan';
+import { callMultiple } from './api';
+import { CALL_ID, CALL_TYPE, CONTRACT_ADDRESS, DEFAULT_CONTRACTS } from './constants';
 
 /**
  * An object that contains the address (key) and timestamp or timestamp map (value).
@@ -14,15 +9,9 @@ export type TimestampMap = BalanceMap<BalanceMap>;
 
 export interface UnlockScanOptions {
   /**
-   * The address of the contract to use. Defaults to 0x60EfD418BEB6E0064AcBb7CD704169F07De67480.
+   * The address of the contract to use. Defaults to the eth-scan contract.
    */
   contractAddress?: string;
-
-  /**
-   * It's not possible to check thousands of addresses at the same time, due to gas limitations.
-   * Calls are split per `batchSize` addresses, by default set to 1000.
-   */
-  batchSize?: number;
 
   /**
    * An array of contracts to scan. Defaults to the contracts used by MyCrypto, e.g.:
@@ -36,13 +25,12 @@ export interface UnlockScanOptions {
 }
 
 /**
- * Get the Unlock Protocol timestamps for multiple contracts, for multiple addresses. Note that this may fail if there are
- * too many addresses or contracts, and the batch size is too large.
+ * Get the Unlock Protocol timestamps for multiple contracts, for multiple addresses.
  *
  * @param {ProviderLike} provider
  * @param {string[]} addresses
  * @param {UnlockScanOptions} options
- * @return {Promise<TimestampMap<TimestampMap>>}
+ * @return {Promise<TimestampMap>}
  */
 export const getUnlockTimestamps = async (
   provider: ProviderLike,
@@ -50,7 +38,6 @@ export const getUnlockTimestamps = async (
   options?: UnlockScanOptions
 ): Promise<TimestampMap> => {
   const contractAddress = options?.contractAddress ?? CONTRACT_ADDRESS;
-  const batchSize = options?.batchSize ?? BATCH_SIZE;
   const contracts = options?.contracts ?? DEFAULT_CONTRACTS;
 
   return callMultiple(
@@ -58,13 +45,9 @@ export const getUnlockTimestamps = async (
     addresses,
     contracts,
     (batchedAddresses, batchedContracts) =>
-      withId(
-        UNLOCK_TIMESTAMPS_ID,
-        encode(UNLOCK_TIMESTAMPS_TYPE, [batchedAddresses, batchedContracts])
-      ),
+      withId(CALL_ID, encode(CALL_TYPE, [batchedContracts, batchedAddresses])),
     {
-      contractAddress,
-      batchSize
+      contractAddress
     }
   );
 };
