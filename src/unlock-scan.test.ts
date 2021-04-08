@@ -6,6 +6,8 @@ import { getUnlockTimestamps } from './unlock-scan';
 
 const { deployContract, deployMockContract, provider } = waffle;
 
+jest.setTimeout(50000);
+
 describe('getUnlockTimestamps', () => {
   it('gets the expiry timestamps for multiple contracts', async () => {
     const contract = (await deployContract(
