@@ -1,4 +1,5 @@
-import { BalanceMap, encode, ProviderLike, withId } from '@mycrypto/eth-scan';
+import { encode } from '@findeth/abi';
+import { BalanceMap, ProviderLike, withId } from '@mycrypto/eth-scan';
 import { callMultiple } from './api';
 import { CALL_ID, CALL_TYPE, CONTRACT_ADDRESS, DEFAULT_CONTRACTS } from './constants';
 

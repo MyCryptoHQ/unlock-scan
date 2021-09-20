@@ -1,8 +1,7 @@
-import { decode } from '@findeth/abi';
+import { decode, encode } from '@findeth/abi';
 import {
   BalanceMap,
   call,
-  encode,
   ProviderLike,
   Result,
   toNestedBalanceMap,
