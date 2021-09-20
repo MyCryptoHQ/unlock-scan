@@ -1723,13 +1723,14 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@mycrypto/eth-scan@^3.4.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@mycrypto/eth-scan/-/eth-scan-3.4.2.tgz#a452fa07b8a4e522d24892be82901e328486aa27"
-  integrity sha512-CUPeEwdRdCq8I5AJchD28dvWAQd/8e8eKuss44zGVba+sXBWC9XuCm5b1IoVj2VhJF4mZb8kMt1cu+AB/qsYGQ==
+"@mycrypto/eth-scan@^3.5.2":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@mycrypto/eth-scan/-/eth-scan-3.5.2.tgz#5dd558b06a2a3d3a0d6d799f28b895b3b772fede"
+  integrity sha512-gHTeK2inci6220bSac8oOy35CPz7bkxJyuv9fBUuQBi/ekBL2yupcf36L7nrzTiBXCMHveKwWC34m592Z1qWJw==
   dependencies:
     "@findeth/abi" "^0.7.1"
     isomorphic-unfetch "^3.1.0"
+    uuid-random-es "^2.1.1"
 
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
@@ -11781,6 +11782,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid-random-es@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/uuid-random-es/-/uuid-random-es-2.1.1.tgz#695bbe28559d9886afdb079dd4713f3faa1651a6"
+  integrity sha512-JUGIsQZb+1O1ETxY4/p/S0rsFGPGgscECbzPXN+Xeqnlz3XmqMR3OzC64bMQ8htxDFjvuA8Gl9y3Ve/l8fQEWg==
 
 uuid@2.0.1:
   version "2.0.1"
