@@ -6,6 +6,6 @@ enabled = true
 
   [analyzers.meta]
   plugins = [
-    "react",
-    "angularjs"
+    "angularjs",
+    "react"
   ]
