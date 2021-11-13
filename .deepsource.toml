@@ -1,11 +1,13 @@
 version = 1
 
 [[analyzers]]
-name = "javascript"
+name = "go"
 enabled = true
 
   [analyzers.meta]
-  plugins = [
-    "angularjs",
-    "react"
-  ]
+  import_root = "github.com/llattanaja/unlock-scan"
+  dependencies_vendored = true
+
+[[transformers]]
+name = "gofmt"
+enabled = true
